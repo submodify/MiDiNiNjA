@@ -41,7 +41,6 @@ bool clockUSB = true;
 inline void blinkLED() __attribute__((always_inline));
 inline void blink(uint8_t) __attribute__((always_inline));
 inline void checkButton() __attribute__((always_inline));
-inline void blinkMode() __attribute__((always_inline));
 
 void setup() {
   pinMode(LEDPIN, OUTPUT);               // LED pin
