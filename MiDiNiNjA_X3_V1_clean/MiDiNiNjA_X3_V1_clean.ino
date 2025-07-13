@@ -46,8 +46,8 @@ inline void blinkMode() __attribute__((always_inline));
 void setup() {
   pinMode(LEDPIN, OUTPUT);               // LED pin
   button.setup(BUTTONPIN, false, true);  // Button pin 12, no pullup, active low.
-  button.attachLongPressStart(resetChannelLock);
-  resetChannelLock();
+  button.attachLongPressStart(resetClockLock);
+  resetClockLock();
   MIDI_A.begin(MIDI_CHANNEL_OMNI);
   MIDI_B.begin(MIDI_CHANNEL_OMNI);
   MIDI_C.begin(MIDI_CHANNEL_OMNI);
@@ -174,7 +174,7 @@ void loop() {
 // ##### FUNCTIONS #####
 
 /* Reset Clock Assignment */
-void resetChannelLock() {
+void resetClockLock() {
   clockDIN = true;
   clockUSB = true;
   blink(2);
