@@ -64,9 +64,10 @@ void loop() {
     byte data1 = MIDI_A.getData1();
     byte data2 = MIDI_A.getData2();
 
-    if (channel) {                                           // If a Channel message
-      if (type == midi::NoteOn && !chanMute[channel]) {      // If Note On and not muted.
-        usbMIDI.send(type, data1, data2, 1, (channel - 1));  // Send Note On
+    if (channel) {                                             // If a Channel message
+      if (type == midi::NoteOn) {                              // If Note On
+        if (!chanMute[channel])                                // If Not Muted
+          usbMIDI.send(type, data1, data2, 1, (channel - 1));  // Send Note On
       } else {
         usbMIDI.send(type, data1, data2, 1, (channel - 1));  // Use the Channel number to assign a USB port, and send on Midi Channel 1
         midiActivity = true;
@@ -185,7 +186,7 @@ void loop() {
 
 /* Reset Clock Assignment */
 void resetClockLock() {
-  memset(chanMute, false, 16); // reset mutes
+  memset(chanMute, false, 16);  // reset mutes
   clockDIN = true;
   clockUSB = true;
   blink(2);
