@@ -64,11 +64,8 @@ void loop() {
     byte data1 = MIDI_A.getData1();
     byte data2 = MIDI_A.getData2();
 
-    if (channel) {                                             // If a Channel message
-      if (type == midi::NoteOn) {                              // If Note On
-        if (!chanMute[channel])                                // If Not Muted
-          usbMIDI.send(type, data1, data2, 1, (channel - 1));  // Send Note On
-      } else {
+    if (channel) {                                           // If a Channel message
+      if (!(type == midi::NoteOn && chanMute[channel])) {    // If NOT a (Note On && Muted)...... This still confuses me =)
         usbMIDI.send(type, data1, data2, 1, (channel - 1));  // Use the Channel number to assign a USB port, and send on Midi Channel 1
         midiActivity = true;
       }
